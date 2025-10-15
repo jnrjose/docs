@@ -1,0 +1,267 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Valour API Documentation",
+  "colors": {
+    "primary": "#00ff00",
+    "light": "#49b648",
+    "dark": "#00cd00"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "index",
+              "quickstart",
+              "authentication"
+            ]
+          },
+          {
+            "group": "Core Concepts",
+            "pages": [
+              "concepts/overview",
+              "concepts/rate-limiting",
+              "concepts/webhooks",
+              "concepts/error-handling"
+            ]
+          },
+          {
+            "group": "Integration Guides",
+            "pages": [
+              "guides/virtual-accounts",
+              "guides/transactions",
+              "guides/customers",
+              "guides/recipients"
+            ]
+          },
+          {
+            "group": "SDKs & Examples",
+            "pages": [
+              "sdks/javascript",
+              "sdks/python",
+              "sdks/curl-examples"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Authentication",
+            "pages": [
+              "api/auth/post-auth-login",
+              "api/auth/post-auth-register",
+              "api/auth/post-auth-logout",
+              "api/auth/post-auth-refresh",
+              "api/auth/post-auth-forgot-password",
+              "api/auth/post-auth-reset-password",
+              "api/auth/post-auth-set-password",
+              "api/auth/post-auth-verify",
+              "api/auth/auth-verify-email"
+            ]
+          },
+          {
+            "group": "2FA",
+            "pages": [
+              "api/2fa/2fa-qrcode",
+              "api/2fa/post-2fa-enable"
+            ]
+          },
+          {
+            "group": "API Keys",
+            "pages": [
+              "api/api-keys",
+              "api/post-api-keys",
+              "api/api-keys-id",
+              "api/delete-api-keys-id",
+              "api/api-keys/patch-api-keys-id-label",
+              "api/api-keys/api-keys-logs"
+            ]
+          },
+          {
+            "group": "Banks",
+            "pages": [
+              "api/banks",
+              "api/banks/post-banks-lookup"
+            ]
+          },
+          {
+            "group": "Public APIs",
+            "pages": [
+              "api/public/public-banks",
+              "api/public/banks/post-public-banks-lookup",
+              "api/public/public-recipients",
+              "api/public/public-recipients-id",
+              "api/public/public-virtual-accounts",
+              "api/public/public-virtual-accounts-id"
+            ]
+          },
+          {
+            "group": "Customers",
+            "pages": [
+              "api/customers",
+              "api/post-customers",
+              "api/customers-id",
+              "api/customers/customers-id-verification-tasks"
+            ]
+          },
+          {
+            "group": "Transactions",
+            "pages": [
+              "api/transactions",
+              "api/transactions-id",
+              "api/transactions/transactions-reference-reference"
+            ]
+          },
+          {
+            "group": "Transfer Requests",
+            "pages": [
+              "api/transfer-requests",
+              "api/post-transfer-requests",
+              "api/transfer-requests-id",
+              "api/transfer-requests/transfer-requests-reference-reference",
+              "api/transfer-requests/patch-transfer-requests-id-confirm-payment"
+            ]
+          },
+          {
+            "group": "Virtual Accounts",
+            "pages": [
+              "api/virtual-accounts-id",
+              "api/virtual-accounts/virtual-accounts-requests",
+              "api/virtual-accounts/post-virtual-accounts-requests",
+              "api/virtual-accounts/request/post-virtual-accounts-request-account",
+              "api/virtual-accounts/requests/patch-virtual-accounts-requests-id-process",
+              "api/virtual-accounts/put-virtual-accounts-id-suspend",
+              "api/virtual-accounts/virtual-accounts-metrics",
+              "api/virtual-accounts/virtual-accounts-id-activities"
+            ]
+          },
+          {
+            "group": "Recipients",
+            "pages": [
+              "api/recipients",
+              "api/recipients-id",
+              "api/delete-recipients-id",
+              "api/recipients/post-recipients-fiat",
+              "api/recipients/post-recipients-crypto"
+            ]
+          },
+          {
+            "group": "Rates",
+            "pages": [
+              "api/rates",
+              "api/rates/rates-currencies",
+              "api/rates/rates-networks",
+              "api/rates/post-rates-calculator"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "api/webhooks",
+              "api/post-webhooks",
+              "api/patch-webhooks",
+              "api/webhooks/post-webhooks-test",
+              "api/webhooks/webhooks-logs",
+              "api/webhooks/patch-webhooks-id-status"
+            ]
+          },
+          {
+            "group": "System",
+            "pages": [
+              "api/limit-check",
+              "api/test/post-test-teardown"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Dashboard",
+          "href": "https://dashboard.railsfromthecrypt.com",
+          "icon": "chart-line"
+        },
+        {
+          "anchor": "Support",
+          "href": "mailto:support@railsfromthecrypt.com",
+          "icon": "headset"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "https://dashboard.railsfromthecrypt.com/images/valour-logo.svg",
+    "dark": "https://dashboard.railsfromthecrypt.com/images/valour-logo.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Status",
+        "href": "https://status.railsfromthecrypt.com"
+      },
+      {
+        "label": "Support",
+        "href": "mailto:support@railsfromthecrypt.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Get Started",
+      "href": "https://docs.railsfromthecrypt.com/quickstart"
+    }
+  },
+  "contextual": {
+    "options": [
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/railsfromthecrypt",
+      "github": "https://github.com/railsfromthecrypt",
+      "linkedin": "https://linkedin.com/company/railsfromthecrypt"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.railsfromthecrypt.com/"
+    },
+    {
+      "url": "https://staging-api.railsfromthecrypt.com/"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+ "api": {
+		"mdx":{
+			"server": "https://api.railsfromthecrypt.com/"
+		},
+    "auth": {
+      "method": "bearer"
+    }
+  }
+}

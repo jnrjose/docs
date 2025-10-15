@@ -1,0 +1,335 @@
+---
+title: "Public Banks"
+api: "GET /v1/public/banks"
+description: "Retrieve public bank information without authentication"
+---
+
+## Overview
+
+Get a list of all publicly available banks supported by the Valour platform. This endpoint provides basic bank information that can be accessed without full authentication, making it suitable for public-facing applications and initial setup flows.
+
+<Note>
+This endpoint requires API key authentication. Include your API key in the `X-API-Key` header.
+</Note>
+
+## Request
+
+<ParamField header="X-API-Key" type="string" required>
+  Your API key for authentication
+</ParamField>
+
+## Response
+
+<ResponseField name="message" type="string">
+  Success message
+</ResponseField>
+
+<ResponseField name="data" type="object">
+  Response data container
+</ResponseField>
+
+<ResponseField name="data.results" type="array">
+  Array of public bank objects
+</ResponseField>
+
+<ResponseField name="data.results[].bank_code" type="string">
+  Unique bank identifier code
+</ResponseField>
+
+<ResponseField name="data.results[].bank_name" type="string">
+  Full name of the bank
+</ResponseField>
+
+<ResponseField name="data.results[].country" type="string">
+  Country where the bank operates
+</ResponseField>
+
+<ResponseField name="data.results[].currency" type="string">
+  Primary currency supported by the bank
+</ResponseField>
+
+<ResponseField name="data.results[].is_active" type="boolean">
+  Whether the bank is currently active and available for transactions
+</ResponseField>
+
+## Example Request
+
+<CodeGroup>
+
+```bash cURL
+curl -X GET https://api.railsfromthecrypt.com/v1/public/banks \
+  -H "X-API-Key: your-api-key-here"
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.railsfromthecrypt.com/v1/public/banks', {
+  method: 'GET',
+  headers: {
+    'X-API-Key': 'your-api-key-here'
+  }
+});
+
+const data = await response.json();
+console.log(data);
+```
+
+```python Python
+import requests
+
+response = requests.get(
+    'https://api.railsfromthecrypt.com/v1/public/banks',
+    headers={'X-API-Key': 'your-api-key-here'}
+)
+
+data = response.json()
+print(data)
+```
+
+```php PHP
+<?php
+
+$response = $httpClient->get('https://api.railsfromthecrypt.com/v1/public/banks', [
+    'headers' => [
+        'X-API-Key' => 'your-api-key-here'
+    ]
+]);
+
+$data = $response->json();
+```
+
+</CodeGroup>
+
+## Example Response
+
+<ResponseExample>
+
+```json Success Response
+{
+  "message": "Public banks retrieved successfully",
+  "data": {
+    "results": [
+      {
+        "bank_code": "001",
+        "bank_name": "First Bank of Nigeria",
+        "country": "Nigeria",
+        "currency": "NGN",
+        "is_active": true
+      },
+      {
+        "bank_code": "002",
+        "bank_name": "Access Bank",
+        "country": "Nigeria", 
+        "currency": "NGN",
+        "is_active": true
+      },
+      {
+        "bank_code": "003",
+        "bank_name": "GTBank",
+        "country": "Nigeria",
+        "currency": "NGN", 
+        "is_active": true
+      }
+    ]
+  }
+}
+```
+
+</ResponseExample>
+
+## Error Responses
+
+<ResponseField name="message" type="string">
+  Error description
+</ResponseField>
+
+<ResponseField name="error" type="object">
+  Error details
+</ResponseField>
+
+### Common Error Codes
+
+<CardGroup cols={2}>
+  <Card title="401 Unauthorized" icon="exclamation-triangle">
+    - **INVALID_API_KEY**: API key is missing or invalid
+    - **API_KEY_EXPIRED**: API key has expired
+  </Card>
+  <Card title="403 Forbidden" icon="shield">
+    - **ACCESS_DENIED**: Insufficient permissions for this endpoint
+  </Card>
+  <Card title="429 Too Many Requests" icon="clock">
+    - **RATE_LIMIT_EXCEEDED**: Too many requests
+    - Wait before retrying
+  </Card>
+  <Card title="500 Internal Server Error" icon="server">
+    - **INTERNAL_ERROR**: Unexpected server error
+    - Retry the request
+  </Card>
+</CardGroup>
+
+## Usage Examples
+
+### Get Public Banks for Dropdown
+
+<CodeGroup>
+
+```javascript JavaScript
+async function getPublicBanksForDropdown(apiKey) {
+  try {
+    const response = await fetch('https://api.railsfromthecrypt.com/v1/public/banks', {
+      method: 'GET',
+      headers: {
+        'X-API-Key': apiKey
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // Format for dropdown usage
+    const bankOptions = data.data.results
+      .filter(bank => bank.is_active)
+      .map(bank => ({
+        value: bank.bank_code,
+        label: bank.bank_name,
+        country: bank.country,
+        currency: bank.currency
+      }));
+    
+    return bankOptions;
+  } catch (error) {
+    console.error('Failed to fetch public banks:', error);
+    throw error;
+  }
+}
+
+// Usage
+const bankOptions = await getPublicBanksForDropdown('your-api-key-here');
+console.log('Bank options for dropdown:', bankOptions);
+```
+
+```python Python
+def get_public_banks_for_dropdown(api_key):
+    try:
+        response = requests.get(
+            'https://api.railsfromthecrypt.com/v1/public/banks',
+            headers={'X-API-Key': api_key}
+        )
+        
+        response.raise_for_status()
+        data = response.json()
+        
+        # Format for dropdown usage
+        bank_options = [
+            {
+                'value': bank['bank_code'],
+                'label': bank['bank_name'],
+                'country': bank['country'],
+                'currency': bank['currency']
+            }
+            for bank in data['data']['results']
+            if bank['is_active']
+        ]
+        
+        return bank_options
+        
+    except requests.exceptions.RequestException as e:
+        print(f'Failed to fetch public banks: {e}')
+        raise
+
+# Usage
+bank_options = get_public_banks_for_dropdown('your-api-key-here')
+print('Bank options for dropdown:', bank_options)
+```
+
+</CodeGroup>
+
+### Cache Public Banks
+
+<CodeGroup>
+
+```javascript JavaScript
+class BankCache {
+  constructor(apiKey) {
+    this.apiKey = apiKey;
+    this.cache = null;
+    this.cacheExpiry = null;
+    this.cacheDuration = 24 * 60 * 60 * 1000; // 24 hours
+  }
+
+  async getBanks() {
+    // Check if cache is still valid
+    if (this.cache && this.cacheExpiry && Date.now() < this.cacheExpiry) {
+      return this.cache;
+    }
+
+    // Fetch fresh data
+    try {
+      const response = await fetch('https://api.railsfromthecrypt.com/v1/public/banks', {
+        method: 'GET',
+        headers: {
+          'X-API-Key': this.apiKey
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      // Update cache
+      this.cache = data.data.results;
+      this.cacheExpiry = Date.now() + this.cacheDuration;
+      
+      return this.cache;
+    } catch (error) {
+      console.error('Failed to fetch banks:', error);
+      
+      // Return cached data if available, even if expired
+      if (this.cache) {
+        console.warn('Using expired cache data');
+        return this.cache;
+      }
+      
+      throw error;
+    }
+  }
+
+  getBankByCode(bankCode) {
+    if (!this.cache) {
+      throw new Error('No cached data available');
+    }
+    
+    return this.cache.find(bank => bank.bank_code === bankCode);
+  }
+}
+
+// Usage
+const bankCache = new BankCache('your-api-key-here');
+const banks = await bankCache.getBanks();
+const specificBank = bankCache.getBankByCode('001');
+```
+
+</CodeGroup>
+
+## Related Endpoints
+
+<CardGroup cols={2}>
+  <Card
+    title="Public Bank Lookup"
+    icon="search"
+    href="/api/public/banks/lookup"
+  >
+    Public bank account lookup
+  </Card>
+  <Card
+    title="Private Banks"
+    icon="lock"
+    href="/api/banks/list"
+  >
+    Get full bank information (requires authentication)
+  </Card>
+</CardGroup>
